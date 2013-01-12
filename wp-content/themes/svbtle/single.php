@@ -74,7 +74,7 @@ get_header(); ?>
 <?php get_template_part( 'loop', 'index' ); ?>
 
 <?php
-$posts=$wpdb->get_results($wpdb->prepare(
+$also_read_posts=$wpdb->get_results($wpdb->prepare(
  "SELECT post_id, meta_value FROM $wpdb->postmeta WHERE meta_key = %s " .
  "ORDER BY CHAR_LENGTH(meta_value) DESC, meta_value DESC LIMIT 5",
  '_wp-svbtle-kudos'
@@ -84,11 +84,11 @@ $posts=$wpdb->get_results($wpdb->prepare(
 <div>
   <h2 id='also-read-title'>Also read...</h2>
   <ul id='also-read-items'>
-  <?php foreach ( $posts as $post ) {?>
+  <?php foreach ( $also_read_posts as $also_read_post ) {?>
     <li>
-      <a href="<?php echo get_permalink($post->post_id); ?>">
-        <h3><?php echo get_the_title($post->post_id); ?></h3>
-        <p class="link_kudo"><?php echo $post->meta_value; ?></p>
+      <a href="<?php echo get_permalink($also_read_post->post_id); ?>">
+        <h3><?php echo get_the_title($also_read_post->post_id); ?></h3>
+        <p class="link_kudo"><?php echo $also_read_post->meta_value; ?></p>
       </a>
     </li>
   <?php }; ?>
